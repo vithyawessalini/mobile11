@@ -8,7 +8,7 @@ import { AiFillWarning } from "react-icons/ai";
 import axios from "axios";
 import toast from "react-hot-toast";
 import "../styles/CartStyles.css";
-
+import { BASE_URL } from "../config";
 const CartPage = () => {
   const [auth, setAuth] = useAuth();
   const [cart, setCart] = useCart();
@@ -48,7 +48,7 @@ const CartPage = () => {
   //get payment gateway token
   const getToken = async () => {
     try {
-      const { data } = await axios.get("https://thespot-42.onrender.com/api/v1/product/braintree/token");
+      const { data } = await axios.get(`${ BASE_URL }/api/v1/product/braintree/token`);
       setClientToken(data?.clientToken);
     } catch (error) {
       console.log(error);
@@ -59,24 +59,57 @@ const CartPage = () => {
   }, [auth?.token]);
 
   //handle payments
-  const handlePayment = async () => {
-    try {
-      setLoading(true);
-      const { nonce } = await instance.requestPaymentMethod();
-      const { data } = await axios.post("https://thespot-42.onrender.com/api/v1/product/braintree/payment", {
-        nonce,
-        cart,
-      });
+  // const handlePayment = async () => {
+  //   try {
+  //     setLoading(true);
+  //     const { nonce } = await instance.requestPaymentMethod();
+  //     const { data } = await axios.post(`${ BASE_URL }/api/v1/product/braintree/payment`, {
+  //       nonce,
+  //       cart,
+  //     });
+  //     setLoading(false);
+  //     localStorage.removeItem("cart");
+  //     setCart([]);
+  //     navigate("/user/orders");
+  //     toast.success("Payment Completed Successfully ");
+  //   } catch (error) {
+  //     console.log(error);
+  //     setLoading(false);
+  //   }
+  // };
+
+  // ...
+
+// handles payments
+const handlePayment = async () => {
+  try {
+    setLoading(true);
+    const { nonce } = await instance.requestPaymentMethod();
+    const { data } = await axios.post(`${BASE_URL}/api/v1/product/braintree/payment`, {
+      nonce,
+      cart,
+    });
+
+    if (data.success) {
+      // Payment success logic
       setLoading(false);
       localStorage.removeItem("cart");
       setCart([]);
-      navigate("/dashboard/user/orders");
-      toast.success("Payment Completed Successfully ");
-    } catch (error) {
-      console.log(error);
+      navigate("/user/orders");
+      toast.success("Payment Completed Successfully");
+    } else {
+      // Payment failed logic
       setLoading(false);
+      toast.error(`Payment Failed: ${data.message}`);
     }
-  };
+  } catch (error) {
+    console.log(error);
+    setLoading(false);
+  }
+};
+
+// ...
+
 
   //handlesubmit
   const handleSubmit = (e) => {
@@ -111,7 +144,7 @@ const CartPage = () => {
     }
   };
   return (
-    <Layout>
+    <Layout >
       <div className="cart-page card-img-overlay">
         <div className="row">
           <div className="col-md-12">
@@ -136,16 +169,17 @@ const CartPage = () => {
                 <div className="row card1 flex-row" key={p._id}>
                   <div className="col-md-4">
                     <img
-                      src={`https://thespot-42.onrender.com/api/v1/product/product-photo/${p._id}`}
+                      src={`${BASE_URL}/api/v1/product/product-photo/${p._id}`}
                       className="card-img-top"
                       alt={p.name}
                       width="60%"
                       height={"130px"}
                     />
                   </div>
-                  <div className="col-md-4" style={{ height: "200px" }}>
+                  <div className="col-md-4">
                     <p>{p.name}</p>
-                    <p>{p.description.substring(0, 30)}</p>
+                    <p>{p.description && p.description.substring(0, 30)}</p>
+
                     <p>Price : {p.price}</p>
                   </div>
                   <div className="col-md-4 cart-remove-btn">
@@ -158,14 +192,14 @@ const CartPage = () => {
                 </div>
               ))}
             </div>
-            {/* <div>
+            
+            <div className="col-md-5 cart-summary ">
+              <h2>Cart Summary</h2>
+                <div>
               <h2>Razorpay</h2>
               <input type = "text" placeholder="amount" value={amount} onChange={(e)=>setAmount(e.target.value)}/>
               <button onClick={handleSubmit}>Submit</button>
-            </div> */}
-            <div className="col-md-5 cart-summary ">
-              <h2>Cart Summary</h2>
-
+            </div>
               <hr />
               <h4>Total : {totalPrice()} </h4>
               {auth?.user?.address ? (
@@ -175,7 +209,7 @@ const CartPage = () => {
                     <h5>{auth?.user?.address}</h5>
                     <button
                       className="btn btn-outline-warning"
-                      onClick={() => navigate("/dashboard/user/profile")}
+                      onClick={() => navigate("/user/profile")}
                     >
                       Update your Address
                     </button>
@@ -186,7 +220,7 @@ const CartPage = () => {
                   {auth?.token ? (
                     <button
                       className="btn btn-outline-warning"
-                      onClick={() => navigate("/dashboard/user/profile")}
+                      onClick={() => navigate("/user/profile")}
                     >
                       Update Address
                     </button>

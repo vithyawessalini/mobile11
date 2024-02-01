@@ -3,6 +3,7 @@ import Layout from "./../../components/Layout/Layout";
 import { useAuth } from "../../context/auth";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { BASE_URL } from "../../config";
 const Review = () => {
   //context
   const [auth, setAuth] = useAuth();
@@ -27,7 +28,7 @@ const Review = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.put("https://thespot-42.onrender.com/api/v1/auth/getreview", {
+      const { data } = await axios.put(`${ BASE_URL }/api/v1/auth/getreview`, {
         name,
         email,
         feedback,

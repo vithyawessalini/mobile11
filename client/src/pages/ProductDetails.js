@@ -3,13 +3,15 @@ import Layout from "./../components/Layout/Layout";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import "../styles/ProductDetailsStyles.css";
-
+import {useCart} from "../context/cart"
+import toast from "react-hot-toast";
+import { BASE_URL } from "../config";
 const ProductDetails = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState({});
   const [relatedProducts, setRelatedProducts] = useState([]);
-
+  const [cart, setCart] = useCart();
   //initalp details
   useEffect(() => {
     if (params?.slug) getProduct();
@@ -18,7 +20,7 @@ const ProductDetails = () => {
   const getProduct = async () => {
     try {
       const { data } = await axios.get(
-        `https://thespot-42.onrender.com/api/v1/product/get-product/${params.slug}`
+        `${ BASE_URL }/api/v1/product/get-product/${params.slug}`
       );
       setProduct(data?.product);
       getSimilarProduct(data?.product._id, data?.product.category._id);
@@ -30,7 +32,7 @@ const ProductDetails = () => {
   const getSimilarProduct = async (pid, cid) => {
     try {
       const { data } = await axios.get(
-        `https://thespot-42.onrender.com/api/v1/product/related-product/${pid}/${cid}`
+        `${ BASE_URL }/api/v1/product/related-product/${pid}/${cid}`
       );
       setRelatedProducts(data?.products);
     } catch (error) {
@@ -42,7 +44,7 @@ const ProductDetails = () => {
       <div className="row container product-details">
         <div className="col-md-6">
           <img
-            src={`https://thespot-42.onrender.com/api/v1/product/product-photo/${product._id}`}
+            src={`${ BASE_URL }/api/v1/product/product-photo/${product._id}`}
             className="card-img-top"
             alt={product.name}
             height="300"
@@ -62,7 +64,14 @@ const ProductDetails = () => {
             })}
           </h6>
           <h6>Category : {product?.category?.name}</h6>
-          {/* <button class="btn btn-secondary ms-1">ADD TO CART</button> */}
+          <button class="btn btn-secondary ms-1" onClick={() => {
+                        setCart([...cart, product]);
+                        localStorage.setItem(
+                          "cart",
+                          JSON.stringify([...cart, product])
+                        );
+                        toast.success("Item Added to cart");
+                      }}>ADD TO CART</button>
         </div>
       </div>
       <hr />
@@ -75,7 +84,7 @@ const ProductDetails = () => {
           {relatedProducts?.map((p) => (
             <div className="card m-2" key={p._id}>
               <img
-                src={`https://thespot-42.onrender.com/api/v1/product/product-photo/${p._id}`}
+                src={`${BASE_URL}/api/v1/product/product-photo/${p._id}`}
                 className="card-img-top"
                 alt={p.name}
               />

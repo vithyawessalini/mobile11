@@ -6,6 +6,7 @@ import axios from "axios";
 import DashboardAdmin from "./DashboardAdmin";
 import { Select } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
+import { BASE_URL } from "../../config";
 const { Option } = Select;
 
 const UpdateProduct = () => {
@@ -25,20 +26,25 @@ const UpdateProduct = () => {
   const getSingleProduct = async () => {
     try {
       const { data } = await axios.get(
-        `https://thespot-42.onrender.com/api/v1/product/get-product/${params.slug}`
+        `${BASE_URL}/api/v1/product/get-product/${params.id}`
       );
-      setName(data.product.name);
-      setId(data.product._id);
-      setDescription(data.product.description);
-      setPrice(data.product.price);
-      setPrice(data.product.price);
-      setQuantity(data.product.quantity);
-      setShipping(data.product.shipping);
-      setCategory(data.product.category._id);
+  
+      if (data.product && data.product._id) {
+        setName(data.product.name);
+        setId(data.product._id);
+        setDescription(data.product.description);
+        setPrice(data.product.price);
+        setQuantity(data.product.quantity);
+        setShipping(data.product.shipping);
+        setCategory(data.product.category._id);
+      } else {
+        console.error("Product not found");
+      }
     } catch (error) {
       console.log(error);
     }
   };
+  
   useEffect(() => {
     getSingleProduct();
     //eslint-disable-next-line
@@ -46,7 +52,7 @@ const UpdateProduct = () => {
   //get all category
   const getAllCategory = async () => {
     try {
-      const { data } = await axios.get("https://thespot-42.onrender.com/api/v1/category/get-category");
+      const { data } = await axios.get(`${ BASE_URL }/api/v1/category/get-category`);
       if (data?.success) {
         setCategories(data?.category);
       }
@@ -72,14 +78,14 @@ const UpdateProduct = () => {
       photo && productData.append("photo", photo);
       productData.append("category", category);
       const { data } = axios.put(
-        `https://thespot-42.onrender.com/api/v1/product/update-product/${id}`,
+        `${ BASE_URL }/api/v1/product/update-product/${id}`,
         productData
       );
       if (data?.success) {
         toast.error(data?.message);
       } else {
         toast.success("Product Updated Successfully");
-        navigate("/dashboard/admin/products");
+        navigate("/admin/products");
       }
     } catch (error) {
       console.log(error);
@@ -93,10 +99,10 @@ const UpdateProduct = () => {
       let answer = window.prompt("Are You Sure want to delete this product ? ");
       if (!answer) return;
       const { data } = await axios.delete(
-        `https://thespot-42.onrender.com/api/v1/product/delete-product/${id}`
+        `${ BASE_URL }/api/v1/product/delete-product/${id}`
       );
       toast.success("Product DEleted Succfully");
-      navigate("/dashboard/admin/products");
+      navigate("/admin/products");
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong");
@@ -105,7 +111,7 @@ const UpdateProduct = () => {
   return (
     <Layout title={"Dashboard - Create Product"}>
       <div className="container-fluid m-3 p-3">
-        <div className="row">
+        <div className="row"><div style={{paddingBottom:'50px'}}></div>
           <div className="col-md-3">
             <AdminMenu />
             <DashboardAdmin />
@@ -155,7 +161,7 @@ const UpdateProduct = () => {
                 ) : (
                   <div className="text-center">
                     <img
-                      src={`https://thespot-42.onrender.com/api/v1/product/product-photo/${id}`}
+                      src={`${ BASE_URL }/api/v1/product/product-photo/${id}`}
                       alt="product_photo"
                       height={"200px"}
                       className="img img-responsive"

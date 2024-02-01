@@ -5,17 +5,17 @@ import axios from "axios";
 import DashboardAdmin from "./DashboardAdmin";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import { BASE_URL } from "../../config";
 const Products = () => {
   const [products, setProducts] = useState([]);
 
   //getall products
   const getAllProducts = async () => {
     try {
-      const { data } = await axios.get("https://thespot-42.onrender.com/api/v1/product/get-product");
+      const { data } = await axios.get(`${ BASE_URL }/api/v1/product/get-product`);
       setProducts(data.products);
     } catch (error) {
       console.log(error);
-      toast.error("Someething Went Wrong");
     }
   };
 
@@ -37,12 +37,12 @@ const Products = () => {
             {products?.map((p) => (
               <Link
                 key={p._id}
-                to={`/dashboard/admin/product/${p.slug}`}
+                to={`/admin/product/${p.slug}`}
                 className="product-link"
               >
                 <div className="card m-2" style={{ width: "18rem" }}>
                   <img
-                    src={`https://thespot-42.onrender.com/api/v1/product/product-photo/${p._id}`}
+                    src={`${BASE_URL}/api/v1/product/product-photo/${p._id}`}
                     className="card-img-top"
                     alt={p.name}
                   />
