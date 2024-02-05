@@ -145,3 +145,23 @@
   color: white;
   padding: 20px 0px;
 }
+
+/* pagination in admin/product page */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination span {
+  cursor: pointer;
+  padding: 10px;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.pagination span:hover {
+  background-color: black;
+  color:#ccc;
+}

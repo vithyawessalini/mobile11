@@ -170,7 +170,7 @@ const handlePayment = async () => {
                   <div className="col-md-4">
                     <img
                       src={`${BASE_URL}/api/v1/product/product-photo/${p._id}`}
-                      className="card-img-top"
+                      className="card-img-top-cart"
                       alt={p.name}
                       width="60%"
                       height={"130px"}
@@ -178,7 +178,7 @@ const handlePayment = async () => {
                   </div>
                   <div className="col-md-4">
                     <p>{p.name}</p>
-                    <p>{p.description && p.description.substring(0, 30)}</p>
+                    <p>{p.description && p.description.substring(0, 30)}...</p>
 
                     <p>Price : {p.price}</p>
                   </div>

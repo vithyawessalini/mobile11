@@ -32,7 +32,7 @@ const Contact = () => {
           We are always here to serve you !!
           </p>
           <p className="mt-3">
-            <BiMailSend /> : thespotforfoodies@gmail.com
+            <BiMailSend /> : suncellular@gmail.com
           </p>
           <p className="mt-3">
             <BiPhoneCall /> : +91 9566738163

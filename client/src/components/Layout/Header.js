@@ -48,7 +48,7 @@ const Header = () => {
               </li>
               <li className="nav-item">
                 <NavLink to="/products" className="nav-link ">
-                  MENU
+                  MOBILES
                 </NavLink>
               </li>
 
@@ -58,7 +58,7 @@ const Header = () => {
                   to={"/categories"}
                   data-bs-toggle="dropdown"
                 >
-                  VARIETIES
+                  BRANDS
                 </Link>
                 <ul className="dropdown-menu">
                   <li>

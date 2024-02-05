@@ -56,6 +56,11 @@ const ProductDetails = () => {
           <hr />
           <h6>Name : {product.name}</h6>
           <h6>Description : {product.description}</h6>
+          {/* {product.description ? (
+            <p dangerouslySetInnerHTML={{ __html: product.description.replace('Wave),', 'Wave) ,<br />') }} />
+          ) : (
+            <p>Description not available</p>
+          )} */}
           <h6>
             Price :
             {product?.price?.toLocaleString("en-US", {

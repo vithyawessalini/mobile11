@@ -36,7 +36,7 @@ const Header = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo01" style={{justifyContent:'space-between'}}>
             <Link to="/dashboard/admin" className="navbar-brand">
-               THE SPOT 42
+               SUNCELLULAR
             </Link>
                 <><div style={{float:"right",marginRight:"2.9rem"}} >
                 <ul className="navbar-nav ms-auto mb-2 mb-lg-0" style={{float:"right"}}>
@@ -53,8 +53,8 @@ const Header = () => {
                     <ul className="dropdown-menu">
                       <li>
                         <NavLink
-                          to={`/dashboard/${
-                            auth?.user?.role === 1 ? "admin" : "user"
+                          to={`/${
+                            auth?.user?.role === 0 ? "admin" : "user"
                           }`}
                           className="dropdown-item"
                         >

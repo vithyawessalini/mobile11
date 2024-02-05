@@ -148,7 +148,7 @@ const HomePage = () => {
           <h1 className="text-center">Our Products</h1>
           <div className="d-flex flex-wrap">
             {products?.map((p) => (
-              
+              <div key={p._id} className="col-md-4 mb-4">
                 <div className="card m-2" style={{ width: "18rem" }}>
                   <img
                     src={`${BASE_URL}/api/v1/product/product-photo/${p._id}`}
@@ -175,7 +175,7 @@ const HomePage = () => {
                     </button>
                   </div>
                 </div>
-              
+              </div>
             ))}
           </div>
           <div className="m-2 p-3">

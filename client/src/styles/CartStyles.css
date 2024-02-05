@@ -34,3 +34,8 @@
     text-align: right;
     /* margin-top: -140px !important; */
   }
+
+  .card-img-top-cart{
+    height: 180px;
+    width: 180px;
+  }
