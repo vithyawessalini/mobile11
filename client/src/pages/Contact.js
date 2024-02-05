@@ -15,7 +15,7 @@ const Contact = () => {
           /> */}
 
 
-<iframe
+           <iframe
               src="https://www.google.com/maps/embed?pb=!1m26!1m12!1m3!1d250482.176132797!2d77.30090633255107!3d11.203610960035027!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m11!3e6!4m3!3m2!1d11.2738824!2d77.5967187!4m5!1s0x3ba90741891d97bd%3A0xef87ffcc90762199!2sthe%20spot%20tirupur!3m2!1d11.1166822!2d77.3338917!5e0!3m2!1sen!2sin!4v1683517722024!5m2!1sen!2sin"
               width="600"
               height="450"

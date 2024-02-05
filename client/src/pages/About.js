@@ -22,6 +22,7 @@ const About = () => {
 
   return (
     <Layout title={"About us - Ecommer app"}>
+    <br/><br/>
       <Carousel>
         <Carousel.Item interval={500}>
           <img
