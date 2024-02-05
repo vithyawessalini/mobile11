@@ -5,11 +5,11 @@ import Layout from "./../components/Layout/Layout";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 
-import burger from "../assets/burger.jpeg";
-import grill from "../assets/grill.jpeg";
-import fries from "../assets/fries.jpeg";
-import biriyani from "../assets/biriyani.jpeg";
-import offer from "../assets/offer.jpeg";
+import burger from "../assets/Redmi-Note-13-5G-Web-.jpg";
+import grill from "../assets/Realme-12-pro-plus-Web-Banner.jpg";
+import fries from "../assets/Samsung-Galaxy-S24.jpg";
+import biriyani from "../assets/iPhone-15-Series-Web-Banner.jpg";
+import offer from "../assets/shop.jpeg";
 import cutlery from "../assets/cutlery.png";
 import motorbike from "../assets/motorbike.png";
 import champagne from "../assets/champagne.png";
@@ -31,11 +31,11 @@ const About = () => {
             height={600}
           />
           <Carousel.Caption>
-            <h1>Cheesy Chicken Burger</h1>
+            {/* <h1>Cheesy Chicken Burger</h1>
             <p className="h5">
               Indulge in crispy goodness with every bite of our Cheesy Chicken
               Burger!
-            </p>
+            </p> */}
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item interval={500}>
@@ -46,11 +46,11 @@ const About = () => {
             height={600}
           />
           <Carousel.Caption>
-            <h1>Chicken Biryani</h1>
+            {/* <h1>Chicken Biryani</h1>
             <p className="h5">
               Experience a burst of aromatic flavors in every spoonful of our
               Chicken Biryani!
-            </p>
+            </p> */}
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item interval={500}>
@@ -61,11 +61,11 @@ const About = () => {
             height={600}
           />
           <Carousel.Caption>
-            <h1>Grill Chicken</h1>
+            {/* <h1>Grill Chicken</h1>
             <p className="h5">
               Sink your teeth into our juicy and tender grilled chicken,
               seasoned to perfection!
-            </p>
+            </p> */}
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item interval={500}>
@@ -76,11 +76,11 @@ const About = () => {
             height={600}
           />
           <Carousel.Caption>
-            <h3>Sandwich</h3>
+            {/* <h3>Sandwich</h3>
             <p className="h5">
               Get your sandwich fix with our wide selection of fresh
               ingredients, piled high and served to perfection!
-            </p>
+            </p> */}
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
@@ -95,24 +95,18 @@ const About = () => {
       </div>
       <div class="about-text p-2">
         <p>
-          The Spot in Kumarnagar, Tirupur is a top player in the category
-          Inexpensive Restaurants (Below Rs 500) in the Tirupur. This well-known
-          establishment acts as a one-stop destination servicing customers both
-          local and from other parts of Tirupur. Over the course of its journey,
-          this business has established a firm foothold in it's industry. The
-          belief that customer satisfaction is as important as their products
-          and services, have helped this establishment garner a vast base of
-          customers, which continues to grow by the day. This business employs
-          individuals that are dedicated towards their respective roles and put
-          in a lot of effort to achieve the common vision and larger goals of
-          the company. In the near future, this business aims to expand its line
-          of products and services and cater to a larger client base. In
-          Tirupur, this establishment occupies a prominent location in
-          Kumarnagar. It is an effortless task in commuting to this
-          establishment as there are various modes of transport readily
-          available. It is known to provide top service in the following
-          categories: Restaurants, Inexpensive Restaurants (Below Rs 500),
-          Arabic Restaurants
+        At SUN CELLULAR, our mission is simple—elevate your mobile experience.
+         We understand that your mobile device is not just a tool; 
+         it's an essential part of your daily life. That's why we've made it our goal to offer a curated selection of top-tier smartphones,
+          accessories, and gadgets that cater to your unique preferences and lifestyle.
+          At SUN CELLULAR, our mission is simple—elevate your mobile experience. We understand that your mobile device is not just a tool; 
+          it's an essential part of your daily life. That's why we've made it our 
+          goal to offer a curated selection of top-tier smartphones, accessories, and
+           gadgets that cater to your unique preferences and lifestyle.
+           Going beyond the ordinary, we offer innovative solutions catering to
+            diverse needs, ensuring that professionals find productivity tools and adventurers discover rugged gear.
+             Our products not only boast cutting-edge technology 
+           but also showcase inspired design, making a statement that complements your individual style.
         </p>
       </div>
 
@@ -133,18 +127,23 @@ const About = () => {
         ></img>
         <div className="card-img-overlay">
           <h1 className="text-center card-title p-5 mx-auto" style={{}}>
-            WHAT WE OFFER
+          Why SUN CELLULAR ?
           </h1>
           <p className="text-center card-text h5 p-5" style={{}}>
-            The spot 42 offers the best, unique & mesmerizing flavors in
-            Shawarmas & Kebabs to match the expectations of the taste buds of
-            the people. At Street Arabiya, the best chefs with excellent
-            culinary skills prepare the Authentic Shawarmas & Kebabs with
-            unmatched taste, quality & flavors. Our Shawarmas & Kebabs are sure
-            to tingle your taste buds. We accord guest satisfaction as our
-            absolute priority and we constantly venture to offer innovative,
-            trendy & seasonal varieties in Shawarmas & Kebabs to make the eating
-            an amazing experience to cherish.
+          At SUN CELLULAR, innovation is at your fingertips. We take pride in being ahead of the curve, curating an inventory that
+           showcases the latest advancements in mobile technology. 
+          This ensures you have access to the most innovative devices on the market.<br></br>
+          <br>
+          </br>
+          Navigating the world of mobile technology is made easy with our expert guidance. 
+          Our knowledgeable and friendly staff are here to assist you,
+           providing expert advice tailored to your preferences—whether you're a tech enthusiast or a casual user.
+           <br></br>
+           <br></br>
+           Unlock exclusive deals and promotions at SUN CELLULAR, making us your go-to destination for affordable, high-quality mobile devices.
+            We understand the value of a good deal and strive to provide you with cost-effective options.
+
+        
           </p>
         </div>
       </div>
