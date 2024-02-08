@@ -5,15 +5,15 @@ import Layout from "./../components/Layout/Layout";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 
-import burger from "../assets/Redmi-Note-13-5G-Web-.jpg";
-import grill from "../assets/Realme-12-pro-plus-Web-Banner.jpg";
-import fries from "../assets/Samsung-Galaxy-S24.jpg";
-import biriyani from "../assets/iPhone-15-Series-Web-Banner.jpg";
+import redmi from "../assets/Redmi-Note-13-5G-Web-.jpg";
+import realme from "../assets/Realme-12-pro-plus-Web-Banner.jpg";
+import samsung from "../assets/Samsung-Galaxy-S24.jpg";
+import iphone from "../assets/iPhone-15-Series-Web-Banner.jpg";
 import offer from "../assets/shop.jpeg";
 import cutlery from "../assets/cutlery.png";
 import motorbike from "../assets/motorbike.png";
 import champagne from "../assets/champagne.png";
-import noodles from "../assets/noodles.jpg";
+import service from "../assets/service.png";
 
 import { useNavigate } from "react-router-dom";
 
@@ -27,7 +27,7 @@ const About = () => {
         <Carousel.Item interval={500}>
           <img
             className="d-block w-100"
-            src={burger}
+            src={redmi}
             alt="First slide"
             height={600}
           />
@@ -42,7 +42,7 @@ const About = () => {
         <Carousel.Item interval={500}>
           <img
             className="d-block w-100"
-            src={biriyani}
+            src={iphone}
             alt="First slide"
             height={600}
           />
@@ -57,7 +57,7 @@ const About = () => {
         <Carousel.Item interval={500}>
           <img
             className="d-block w-100"
-            src={grill}
+            src={realme}
             alt="Second slide"
             height={600}
           />
@@ -72,7 +72,7 @@ const About = () => {
         <Carousel.Item interval={500}>
           <img
             className="d-block w-100"
-            src={fries}
+            src={samsung}
             alt="Third slide"
             height={600}
           />
@@ -156,21 +156,20 @@ const About = () => {
 
       <div class="container">
         <div class="image">
-          <img src={noodles} height={400} width={750}></img>
+          <img src={service} height={400} width={750}></img>
         </div>
         <div class="text">
-          <h1>WE UNDERTAKE ORDERS FROM ?</h1>
+          <h1>We cater to requests from?</h1>
           <br></br>
 
           <p>
-            The Spot can cater to party orders.Party halls can be pre booked for
-            all kinds of functions like Party, Corporate Parties, Private Party,
-            Birthday, Reunion etc to make it more interesting & impactful.
+          We offer top-quality mobile services including repairs, upgrades, accessories, unlocking, and trade-ins.
+           Enjoy convenience with doorstep assistance, quality with genuine parts, and satisfaction guaranteed. 
+           
           </p>
           <br></br>
           <p>
-            Make your parties more attractive & innovative by serving the best
-            delicacies!!
+          Contact us today to stay connected effortlessly!
           </p>
           {/* <button className="button-30" role="button" onClick={()=>navig('/form')} style={{marginTop:'10px'}}>Book Now</button>    */}
           <div class="col-md-12 text-center">
