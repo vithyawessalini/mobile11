@@ -1,7 +1,7 @@
 {
-  "homepage": "http://KaviVarshini21.github.io/suncellular",
+  "homepage": "https://github.com/vithyawessalini/mobile11",
   "name": "client",
-  "proxy": "https://thespot-42.onrender.com",
+  "proxy": "https://mobile11.onrender.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -27,7 +27,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=3001 react-scripts start",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "build": "react-scripts build",
