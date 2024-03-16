@@ -21,7 +21,7 @@ export default function Form() {
                                 <input type="email" name="email" placeholder="Your Email" required />
                             </label>
                             <label className="pure-material-textfield-standard">
-                                <input type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Your Mobile Number" required />
+                                <input type="tel" name="phone" pattern="[0-9]{10}" placeholder="Your Mobile Number" required />
                             </label>
                         
                             <label className="pure-material-textfield-standard">

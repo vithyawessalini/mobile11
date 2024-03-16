@@ -29,7 +29,9 @@ import AdminOrders from "./pages/Admin/AdminOrders"
 import Feedback from "./pages/Auth/Feedback";
 import Review from "./pages/Admin/Review";
 import Form from "./pages/Form";
-
+import AdminSignup from "./pages/Admin/AdminSignup";
+import AdminLogin from "./pages/Admin/AdminLogin";
+import Exchange from "./pages/Exchange"
 function App() {
   return (
     <>
@@ -45,11 +47,13 @@ function App() {
       <Route path="/cart" element={<CartPage />} />
       <Route path="/category/:slug" element={<CategoryProduct />} />
       <Route path="/search" element={<Search />} />
+      <Route path="/exchange" element={<Exchange />} />
 
         <Route path="user" element={<Dashboard/>}/>
         <Route path="user/profile" element={<Profile/>}/>
         <Route path="user/orders" element={<Orders/>}/>
-      
+        <Route path="/loginAdmin" element={<AdminLogin/>}/>
+        <Route path="/signupAdmin" element={<AdminSignup/>}/>
        <Route path="/dashboard" element={<AdminRoute/>}/>
         <Route path="admin" element={<AdminDashboard/>}/>
         <Route path="admin/create-category" element={<CreateCategory/>}/>

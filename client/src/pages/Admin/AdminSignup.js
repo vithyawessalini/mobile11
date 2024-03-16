@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import "../../styles/AuthStyles.css";
 import {BASE_URL} from '../../config';
-const Register = () => {
+const AdminSignup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,7 +18,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${ BASE_URL }/api/v1/auth/register`, {
+      const res = await axios.post(`${ BASE_URL }/api/v1/auth/registerAdmin`, {
         name,
         email,
         password,
@@ -113,11 +113,10 @@ const Register = () => {
           <button type="submit" className="btn btn-primary">
             REGISTER
           </button>
-          
         </form>
       </div>
     </Layout>
   );
 };
 
-export default Register;
+export default AdminSignup 

@@ -79,7 +79,7 @@ export const getProductController = async (req, res) => {
       .find({})
       .populate("category")
       .select("-photo")
-      .limit()
+      .limit(12)
       .sort({ createdAt: -1 });
     res.status(200).send({
       success: true,
@@ -225,6 +225,52 @@ export const productFiltersController = async (req, res) => {
     });
   }
 };
+
+// filters
+export const productPriceFiltersController = async (req, res) => {
+  try {
+    const { checked, sortOrder } = req.body;
+
+    // Determine min and max prices dynamically from the database
+    const minMaxPrices = await productModel.aggregate([
+      { $match: { category: { $in: checked } } },
+      {
+        $group: {
+          _id: null,
+          minPrice: { $min: "$price" },
+          maxPrice: { $max: "$price" }
+        }
+      }
+    ]);
+
+    // Extract minPrice and maxPrice from aggregation result
+    const minPrice = minMaxPrices[0]?.minPrice || 0;
+    const maxPrice = minMaxPrices[0]?.maxPrice || Number.MAX_VALUE;
+
+    let query = { price: { $gte: minPrice, $lte: maxPrice } };
+    // Add category filter if checked categories are provided
+    if (checked && checked.length > 0) {
+      query.category = { $in: checked };
+    }
+  
+    let sortOptions = {};
+    if (sortOrder === 'asc') {
+      sortOptions.price = -1; // Sort in ascending order
+    } else if (sortOrder === 'desc') {
+      sortOptions.price = 1; // Sort in descending order
+    }
+  
+    const products = await productModel.find(query).sort(sortOptions);
+    // Limit the products to ensure they are only displayed up to the maximum price
+    const limitedProducts = products.filter(product => product.price <= maxPrice);
+    res.json({ success: true, products: limitedProducts, minPrice, maxPrice });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
+  }
+  };
+  
+
 
 // product count
 export const productCountController = async (req, res) => {
@@ -387,3 +433,62 @@ export const brainTreePaymentController = async (req, res) => {
     console.log(error);
   }
 };
+
+  // Controller to generate Razorpay order
+  export const generateRazorpayOrder = async (req, res) => {
+    try {
+      const { amount } = req.body;
+      // Create Razorpay order
+      const razorpayOrder = await razorpay.orders.create({
+        amount: amount,
+        currency: "INR",
+        payment_capture: 1, // Auto capture payment
+      });
+      res.status(200).json({ orderId: razorpayOrder.id });
+    } catch (error) {
+      console.error("Error generating Razorpay order:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  };
+  // Controller to handle Razorpay payment
+
+
+  export const handleRazorpayPayment = async (req, res) => {
+    try {
+      const { paymentId, orderId, amount } = req.body;
+      // Verify Razorpay signature (recommended for security, but not shown here)
+      
+      // Process payment and save order to database
+      // Example logic:
+      const order = new orderModel({
+        products: req.user.cart, // Assuming you have a user object with a cart field
+        payment: { paymentId, orderId, amount }, // Save payment details
+        buyer: req.user._id, // Assuming you have a user object with an _id field
+      });
+      await order.save();
+      
+      res.status(200).json({ success: true, message: "Payment success" });
+    } catch (error) {
+      console.error("Error processing Razorpay payment:", error);
+      res.status(500).json({ success: false, error: "Internal server error" });
+    }
+  };
+
+  export const storeOrder = async (req, res) => {
+    try {
+      const { cart } = req.body;
+      // Create a new order instance
+      const order = new orderModel({
+        products: cart,
+        // You can add other fields such as user ID, order status, etc.
+      });
+      // Save the order to the database
+      await order.save();
+      // Send success response
+      res.status(200).json({ success: true, message: "Order stored successfully" });
+    } catch (error) {
+      console.error("Error storing order:", error);
+      res.status(500).json({ success: false, message: "Error storing order" });
+    }
+  };
+ 

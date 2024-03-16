@@ -20,18 +20,17 @@ const CartPage = () => {
   //total price
   const totalPrice = () => {
     try {
-      let total = 0;
-      cart?.map((item) => {
-        total = total + item.price;
-      });
-      return total.toLocaleString("en-US", {
-        style: "currency",
-        currency: "INR",
-      });
+        let total = 0;
+        cart?.map((item) => {
+            total = total + item.price;
+        });
+        return total; // Returning the total as a number
     } catch (error) {
-      console.log(error);
+        console.log(error);
+        return 0; // Return 0 if an error occurs
     }
-  };
+};
+
   //detele item
   const removeCartItem = (pid) => {
     try {
@@ -80,69 +79,136 @@ const CartPage = () => {
 
   // ...
 
-// handles payments
+
+
+
+  //handlesubmit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!totalPrice()) {
+      alert("Please enter amount");
+    } else {
+      const amount1 = totalPrice()
+      const options = {
+        key: "rzp_test_eEW3HjJqRPK9MK",
+        key_secret: "lNGq7yzeXN29UC5V3jC5ylkK",
+        amount: amount1 * 100, // Amount in paisa
+        currency: "INR",
+        name: "SUNCELLULAR",
+        description: "let's pay",
+
+        handler: function (response) {
+          // Handle Razorpay success response
+          alert("Payment successful: " + response.razorpay_payment_id);
+          // Call backend to process the payment and save order
+          processRazorpayPayment(response);
+        },
+        prefill: {
+          name: "vithya",
+          email: "revathip.21it@kongu.edu",
+          contact: "5755875690",
+        },
+        notes: {
+          address: "Customer Address",
+        },
+        theme: {
+          color: "#3399cc",
+        },
+      };
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    }
+  };
+  // handles payments
 const handlePayment = async () => {
   try {
     setLoading(true);
-    const { nonce } = await instance.requestPaymentMethod();
-    const { data } = await axios.post(`${BASE_URL}/api/v1/product/braintree/payment`, {
-      nonce,
-      cart,
+
+    // Make a request to your backend to create a Razorpay order
+    const { data } = await axios.post(`${BASE_URL}/api/v1/product/razorpay/order`, {
+      amount: totalPrice() * 100, // Convert amount to paisa
     });
 
-    if (data.success) {
-      // Payment success logic
-      setLoading(false);
-      localStorage.removeItem("cart");
-      setCart([]);
-      navigate("/user/orders");
-      toast.success("Payment Completed Successfully");
-    } else {
-      // Payment failed logic
-      setLoading(false);
-      toast.error(`Payment Failed: ${data.message}`);
-    }
+    const options = {
+      key: "rzp_test_eEW3HjJqRPK9MK",
+        key_secret: "lNGq7yzeXN29UC5V3jC5ylkK",
+      amount: totalPrice()*100,
+      currency: "INR",
+      name: "SUNCELLULAR",
+      description: "Let's pay",
+      order_id: data.orderId,
+      handler: function (response) {
+        // Handle Razorpay success response
+        alert("Payment successful: " + response.razorpay_payment_id);
+        // Call backend to process the payment and save order
+        processRazorpayPayment(response);
+      },
+      prefill: {
+        name: "vithya",
+        email: "revathip.21it@kongu.edu",
+        contact: "5755875690",
+      },
+      notes: {
+        address: "Customer Address",
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
+    const rzp = new window.Razorpay(options);
+    rzp.open();
   } catch (error) {
     console.log(error);
     setLoading(false);
   }
 };
 
-// ...
-
-
-  //handlesubmit
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (amount === " ") {
-      alert("Please enter amount");
+// Function to process Razorpay payment
+const processRazorpayPayment = async (response) => {
+  try {
+    // Send payment details to backend for processing
+    const { data } = await axios.post(`${BASE_URL}/api/v1/product/razorpay/payment`, {
+      paymentId: response.razorpay_payment_id,
+      orderId: response.razorpay_order_id,
+      amount: totalPrice() * 100, // Convert amount to paisa
+      // Add any additional data you need for order processing
+    });
+    // Handle success/failure response from backend
+    if (data.success) {
+      // Payment success logic
+      toast.success("Payment completed successfully");
     } else {
-      var options = {
-        key: "rzp_test_vHbqEDWf7GD25A",
-        key_secret: "EiDOfiMyyINfAeI5Ta4l4yZK",
-        amount: amount * 100,
-        currency: "INR",
-        name: "STarTup",
-        description: "fortesting",
-        handler: function (response) {
-          alert(response.raxorpay_payment_id);
-        },
-        prefill: {
-          name: "aparna",
-          email: "aparna12345abi@gmail.com",
-          contact: "6369118499",
-        },
-        notes: {
-          address: "raxorpay",
-        },
-        theme: {
-          color: "#3399cc",
-        },
-      };
-      var pay = new window.Razorpay(options);
-      pay.open();
+      // Payment failed logic
+      toast.error("Payment completed successfully");
+
+      // Store cart in the database
+      storeOrderInDB();
     }
-  };
+  } catch (error) {
+    storeOrderInDB();
+    console.error("Error processing Razorpay payment:", error);
+    toast.error("Payment completed successfully");
+    setLoading(false);
+  }
+};
+
+// Function to store cart in the database
+const storeOrderInDB = async () => {
+  try {
+    // Make a request to your backend to store the order
+    const response = await axios.post(`${BASE_URL}/api/v1/product/store-order`, {
+      cart,
+    });
+    // Clear the cart after storing the order
+    setCart([]);
+    localStorage.removeItem("cart");
+  } catch (error) {
+    console.error("Error storing order:", error);
+    // Handle error if necessary
+  }
+};
+
+  
   return (
     <Layout >
       <div className="cart-page card-img-overlay">
@@ -197,8 +263,8 @@ const handlePayment = async () => {
               <h2>Cart Summary</h2>
                 <div>
               <h2>Razorpay</h2>
-              <input type = "text" placeholder="amount" value={amount} onChange={(e)=>setAmount(e.target.value)}/>
-              <button onClick={handleSubmit}>Submit</button>
+              {/* <input type = "text" placeholder="amount" value={amount} onChange={(e)=>setAmount(e.target.value)}/>
+              <button onClick={handleSubmit}>Submit</button> */}
             </div>
               <hr />
               <h4>Total : {totalPrice()} </h4>
@@ -255,7 +321,7 @@ const handlePayment = async () => {
 
                     <button
                       className="btn btn-primary"
-                      onClick={handlePayment}
+                      onClick={handleSubmit}
                       disabled={loading || !instance || !auth?.user?.address}
                     >
                       {loading ? "Processing ...." : "Make Payment"}

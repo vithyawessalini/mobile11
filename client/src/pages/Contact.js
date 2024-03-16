@@ -35,12 +35,13 @@ const Contact = () => {
             <BiMailSend /> : suncellular@gmail.com
           </p>
           <p className="mt-3">
-            <BiPhoneCall /> : +91 9566738163
+            <BiPhoneCall /> : +91 96773 41661 
            
           </p>
           <p>
 
-          <IoLocationSharp/> : The spot for foodies, Avinashi road, Kumar Nagar, Tirupur 641603
+          <IoLocationSharp/> : 8,K.S.M. Complex, Kunnathur Road, UTTUKULI R.S – 638752
+
           </p>
         </div>
       </div>

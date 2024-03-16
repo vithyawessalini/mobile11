@@ -4,22 +4,21 @@ const orderSchema = new mongoose.Schema(
   {
     products: [
       {
-        type: mongoose.ObjectId,
-        ref: "Products",
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product", // Reference to the Product model
       },
     ],
-    payment: {},
-    buyer: {
-      type: mongoose.ObjectId,
-      ref: "users",
-    },
+    // You can add other fields such as user ID, order status, etc.
     status: {
       type: String,
-      default: "Not Process",
-      enum: ["Not Process", "Processing", "Shipped", "deliverd", "cancel"],
+      default: "Not Processed",
+      enum: ["Not Processed", "Processing", "Shipped", "Delivered", "Cancelled"],
     },
+    // Timestamps
   },
   { timestamps: true }
 );
 
-export default mongoose.model("Order", orderSchema);
+const Order = mongoose.model("Order", orderSchema);
+
+export default Order;

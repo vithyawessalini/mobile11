@@ -10,9 +10,9 @@ import realme from "../assets/Realme-12-pro-plus-Web-Banner.jpg";
 import samsung from "../assets/Samsung-Galaxy-S24.jpg";
 import iphone from "../assets/iPhone-15-Series-Web-Banner.jpg";
 import offer from "../assets/shop.jpeg";
-import cutlery from "../assets/cutlery.png";
-import motorbike from "../assets/motorbike.png";
-import champagne from "../assets/champagne.png";
+import mobile from "../assets/mobile.png";
+import motorbike from "../assets/serv.png";
+import exc from "../assets/exc.png";
 import service from "../assets/service.png";
 
 import { useNavigate } from "react-router-dom";
@@ -192,16 +192,15 @@ const About = () => {
           <div className="col-md-4">
             <div className="card p-3 text-center px-4">
               <div className="user-image">
-                <img src={cutlery} className="img-fluid" width="80"></img>
+                <img src={mobile} className="img-fluid" width="158" ></img>
               </div>
 
               <div className="user-content">
-                <h5 className="mb-0">Fast Food</h5>
-                {/* <span>Software Developer</span> */}
-                <p>
-                  Delicious quick food for any craving! Burgers, biryanis,
-                  grilled chicken, sandwiches and more. Order online or in-store
-                  for a satisfying meal today
+                <h5 className="mb-0">MOBILE PHONES</h5>    
+                {/* <span>MOBILE PHONES</span> */}
+                <p style={{fontSize:'20px'}}>
+                Discover an array of top-notch smartphones! . Catering to every taste and budget. 
+                Shop online or visit our store for a seamless shopping experience today.
                 </p>
               </div>
             </div>
@@ -210,16 +209,16 @@ const About = () => {
           <div className="col-md-4">
             <div className="card p-3 text-center px-4">
               <div className="user-image">
-                <img src={motorbike} className="image-fluid" width="80"></img>
+                <img src={motorbike} className="image-fluid" width="150"></img>
               </div>
 
               <div className="user-content">
-                {/* <h5 className="mb-0">Mark Smith</h5> */}
-                <span>Fast Delivery</span>
-                <p>
-                  Experience the convenience of fast delivery without
-                  sacrificing quality or taste. Our food is always hot, fresh,
-                  and ready to be delivered straight to your doorstep{" "}
+                <h5 className="mb-0">PHONEPRO SERVICE</h5>
+                {/* <span>PHONEPRO SERVICE</span> */}
+                <p style={{fontSize:'20px'}}>
+                From repairs and upgrades to customization,
+                 trust us to keep your devices running smoothly.
+                 Visit us today for personalized service and peace of mind.
                 </p>
               </div>
             </div>
@@ -228,25 +227,22 @@ const About = () => {
           <div className="col-md-4">
             <div className="card p-3 text-center px-4">
               <div className="user-image">
-                <img src={champagne} className="img-fluid" width="80"></img>
+                <img src={exc} className="img-fluid" width="150"></img>
               </div>
 
               <div className="user-content">
-                {/* <h5 className="mb-0">Veera Duncan</h5> */}
-                <span>Party Hall</span>
-                <p>
-                  Host your next small event in our beautiful party hall. The
-                  perfect space for small gatherings and celebrations with
-                  friends and family
+                <h5 className="mb-0">MOBILE EXCHANGE</h5>
+                {/* <span>MOBILE EXCHANGE</span> */}
+                <p style={{fontSize:'20px'}}>
+                Ready to upgrade? Trade in your old phone with us! 
+                Say goodbye to your old device and hello to the latest tech! 
+                Sell your phone now and make room for the future.
                 </p>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <br></br>
-
-      <br></br>
     </Layout>
   );
 };

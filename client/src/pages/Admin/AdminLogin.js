@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import "../../styles/AuthStyles.css";
 import { useAuth } from "../../context/auth";
 import {BASE_URL} from '../../config';
-const Login = () => {
+const LoginAdmin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [auth, setAuth] = useAuth();
@@ -18,7 +18,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${ BASE_URL }/api/v1/auth/login`, {
+      const res = await axios.post(`${ BASE_URL }/api/v1/auth/loginAdmin`, {
         email,
         password,
       });
@@ -30,7 +30,7 @@ const Login = () => {
           token: res.data.token,
         });
         localStorage.setItem("auth", JSON.stringify(res.data));
-        navigate(location.state || "/user");
+        navigate(location.state || "/admin");
       } else {
         toast.error(res.data.message);
       }
@@ -73,7 +73,7 @@ const Login = () => {
               type="button"
               className="btn forgot-btn"
               onClick={() => {
-                navigate("/forgot-password");
+                navigate("/adminforgot-password");
               }}
             >
               Forgot Password
@@ -83,21 +83,22 @@ const Login = () => {
           <button type="submit" className="btn btn-primary">
             LOGIN
           </button>
-          <br></br><br></br>
-          <button
+          <div className="mb-3">
+            <br></br>
+            <button
               type="button"
               className="btn forgot-btn"
               onClick={() => {
-                navigate("/loginAdmin");
+                navigate("/signupAdmin");
               }}
             >
-              Login as admin
+              Register for Admin
             </button>
-
+          </div>
         </form>
       </div>
     </Layout>
   );
 };
 
-export default Login;
+export default LoginAdmin;
