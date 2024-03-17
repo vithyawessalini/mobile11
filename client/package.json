@@ -1,6 +1,7 @@
 {
   "homepage": "https://github.com/vithyawessalini/mobile11",
   "name": "client",
+  "proxy": "https://localhost:10000",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
