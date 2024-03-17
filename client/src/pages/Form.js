@@ -7,7 +7,9 @@ export default function Form() {
     return (
         <>
             <Layout>
-                <br /><br /><br />
+
+                <br /><br /><div><br /><br />
+                {/* <div style={{backgroundColor: 'rgb(135, 102, 121)'}}>*/}
                 <h3 className="text-center">Book Mobile Service Here</h3>
 
                 <div id="feedback-form">
@@ -37,7 +39,7 @@ export default function Form() {
                         </form>
                     </div>
                 </div>
-                <br /><br />
+                <br /><br /></div>
             </Layout>
         </>
     )

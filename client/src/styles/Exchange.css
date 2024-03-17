@@ -1,4 +1,6 @@
-
+.page-wrapper {
+  background-color: rgb(136, 110, 125); /* Change the background color as desired */
+}
 .mobile-selling-form {
     max-width: 500px;
     margin: 50px auto;
@@ -47,24 +49,24 @@
   .form-group input:focus,
   .form-group select:focus {
     outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    border-color: rgb(101, 73, 90);
+    box-shadow: 0 0 0 2px rgb(75, 55, 66);
   }
   
-  button[type="submit"] {
+  .exchangebutton {
     width: 100%;
     padding: 12px;
     border: none;
     border-radius: 5px;
-    background-color: #007bff;
+    background-color: rgb(75, 55, 66);
     color: #fff;
     font-size: 18px;
     cursor: pointer;
     transition: background-color 0.3s;
   }
   
-  button[type="submit"]:hover {
-    background-color: #0056b3;
+  .exchangebutton:hover {
+    background-color: rgb(53, 36, 46);
   }
   
   .error {
@@ -80,10 +82,11 @@
   }
   
   .result h3 {
-    color: #28a745;
+    color: rgb(133, 100, 118);
   }
   
   .result p {
     font-size: 20px;
+    color: rgb(84, 63, 74);
   }
   

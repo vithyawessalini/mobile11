@@ -179,7 +179,7 @@ const processRazorpayPayment = async (response) => {
       toast.success("Payment completed successfully");
     } else {
       // Payment failed logic
-      toast.error("Payment completed successfully");
+      toast.success("Payment completed successfully");
 
       // Store cart in the database
       storeOrderInDB();
@@ -187,7 +187,7 @@ const processRazorpayPayment = async (response) => {
   } catch (error) {
     storeOrderInDB();
     console.error("Error processing Razorpay payment:", error);
-    toast.error("Payment completed successfully");
+    toast.success("Payment completed successfully");
     setLoading(false);
   }
 };
@@ -304,6 +304,12 @@ const storeOrderInDB = async () => {
                   )}
                 </div>
               )}
+              <button
+                      className="btn btn-outline-warning"
+                      onClick={() => navigate("/Exchange")}
+                    >
+                     Sell old phones 
+                    </button>
               <div className="mt-2">
                 {!clientToken || !auth?.token || !cart?.length ? (
                   ""

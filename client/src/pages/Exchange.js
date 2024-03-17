@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/Exchange.css'; // Ensure this path is correct
-
+import Headers from '../components/Layout/Header.js';
 const Exchange = () => {
   const topMobileBrands = ['Apple', 'Samsung', 'Google', 'OnePlus', 'Xiaomi', 'Huawei', 'Sony', 'LG'];
   const [brand, setBrand] = useState('');
@@ -94,6 +94,7 @@ const Exchange = () => {
   };
 
   return (
+    <div className="page-wrapper"><Headers/><br/>
     <div className="mobile-selling-form" >
       <h2>Sell Your Old Mobile Phone</h2>
       {error && <p className="error">{error}</p>}
@@ -162,15 +163,15 @@ const Exchange = () => {
           <input type="number" value={yearsUsed} onChange={(e) => setYearsUsed(e.target.value)} required />
         </div>
         
-        <button type="submit">Calculate Amount</button>
+        <button type="submit" className='exchangebutton' id='exchangebutton'>Calculate Amount</button>
       </form>
       {amount && (
         <div className="result">
           <h3>Amount Generated:</h3>
-          <p>Rs: {amount}</p>
+          <p>Rs: {amount} </p>
         </div>
       )}
-    </div>
+    </div><br/></div>
   );
 };
 

@@ -31,6 +31,7 @@ import Review from "./pages/Admin/Review";
 import Form from "./pages/Form";
 import AdminSignup from "./pages/Admin/AdminSignup";
 import AdminLogin from "./pages/Admin/AdminLogin";
+import Forget from "./pages/Admin/Forget";
 import Exchange from "./pages/Exchange"
 function App() {
   return (
@@ -57,7 +58,7 @@ function App() {
        <Route path="/dashboard" element={<AdminRoute/>}/>
         <Route path="admin" element={<AdminDashboard/>}/>
         <Route path="admin/create-category" element={<CreateCategory/>}/>
-        
+        <Route path="adminforgot-password" element={<Forget/>}/>
         <Route path="admin/products" element={<Products/>}/>
         <Route 
           path="admin/product/:id" 
