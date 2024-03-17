@@ -1,7 +1,6 @@
 {
   "homepage": "https://github.com/vithyawessalini/mobile11",
   "name": "client",
-  "proxy": "https://mobile11.onrender.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
