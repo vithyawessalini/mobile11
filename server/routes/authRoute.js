@@ -4,8 +4,6 @@ loginController,
 testController,
 forgotPasswordController,
    updateProfileController,
-   getOrdersController,
-   getAllOrdersController,
    orderStatusController,
    registerAdminController,
    loginAdminController,
@@ -49,11 +47,6 @@ router.get("/admin-auth", requireSignIn, isAdmin, (req, res) => {
 //update profile
 router.put("/profile", requireSignIn, updateProfileController);
 
-//orders
-// router.get("/orders", requireSignIn, getOrdersController);
-
-// //all orders
-// router.get("/all-orders", requireSignIn, getAllOrdersController);
 
 // order status update
 router.put(
@@ -62,5 +55,6 @@ router.put(
   isAdmin,
   orderStatusController
 );
+
 
 export default router;
