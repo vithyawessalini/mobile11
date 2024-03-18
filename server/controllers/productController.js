@@ -491,7 +491,8 @@ export const brainTreePaymentController = async (req, res) => {
       res.status(500).json({ success: false, message: "Error storing order" });
     }
   };
- export const getOrdersController = async (req, res) => {
+ //orders
+export const getOrdersController = async (req, res) => {
   try {
     const orders = await orderModel
       .find({ buyer: req.user._id })
@@ -517,3 +518,24 @@ export const getAllOrdersController = async (req, res) => {
       res.status(500).json({ message: 'Internal server error' });
     }
 };
+export const getProductOrder = async (req, res) => {
+    try {
+      // Extract productId from request parameters
+      const { productId } = req.params;
+  
+      // Find the product by productId in the database
+      const product = await productModel.findById(productId);
+  
+      // Check if the product exists
+      if (!product) {
+        return res.status(404).json({ success: false, message: 'Product not found' });
+      }
+  
+      // Return the product details if found
+      res.status(200).json({ success: true, product });
+    } catch (error) {
+      // Handle errors
+      console.error('Error fetching product details:', error);
+      res.status(500).json({ success: false, message: 'Internal Server Error' });
+    }
+  };
