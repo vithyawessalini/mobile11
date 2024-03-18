@@ -85,7 +85,7 @@ router.post("/store-order", storeOrder);
 router.get("/orders", requireSignIn, getOrdersController);
 
 //all orders
-router.get("/all-orders", requireSignIn, getAllOrdersController);
+router.get("/all-orders",  getAllOrdersController);
 router.post("/product-filters", productFiltersController);
 router.post("/product-filters-price", productPriceFiltersController);
 
