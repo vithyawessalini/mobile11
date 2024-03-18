@@ -491,4 +491,29 @@ export const brainTreePaymentController = async (req, res) => {
       res.status(500).json({ success: false, message: "Error storing order" });
     }
   };
- 
+ export const getOrdersController = async (req, res) => {
+  try {
+    const orders = await orderModel
+      .find({ buyer: req.user._id })
+      .populate("products", "-photo")
+      .populate("buyer", "name");
+    res.json(orders);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error WHile Geting Orders",
+      error,
+    });
+  }
+};
+//orders
+export const getAllOrdersController = async (req, res) => {
+    try {
+      const coaches = await orderModel.find();
+      res.json(coaches);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+};
