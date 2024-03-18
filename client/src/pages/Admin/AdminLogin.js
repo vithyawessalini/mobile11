@@ -9,7 +9,7 @@ import {BASE_URL} from '../../config';
 const LoginAdmin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [auth, setAuth] = useAuth();
+  const [auth, setAuth] = useAuth("user");
 
   const navigate = useNavigate();
   const location = useLocation();

@@ -30,7 +30,7 @@ app.use("/api/v1/product", productRoutes);
 
 //rest api
 app.get('/',(req,res)=>{
-    res.send("<h1>Welcome to mobile eccommerce</h1>");
+    res.send("<h1>Welcome to suncellular</h1>");
 })
 
 //PORT

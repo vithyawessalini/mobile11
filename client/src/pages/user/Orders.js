@@ -1,40 +1,57 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import UserMenu from "../../components/Layout/UserMenu";
-import Layout from "../../components/Layout/Layout";
+import Layout from "./../../components/Layout/Layout";
+import axios from "axios";
 import moment from "moment";
-import {BASE_URL} from "../../config";
+import { BASE_URL } from "../../config";
+
 const Orders = () => {
-  // Set the locale to English (United States)
-  moment.locale("en");
+  const [orders, setOrders] = useState([]);
+  const [productDetails, setProductDetails] = useState({});
 
-  // Get the current day and date
-  const currentDate = moment("2024-03-20").format("dddd, MMMM D, YYYY");
+  const getProductDetails = async (productId) => {
+    try {
+      if (!productId) return null;
+      const response = await axios.get(`${BASE_URL}/api/v1/product/get/${productId}`);
+      return response.data.product; // Assuming the product data is nested under 'product' key
+    } catch (error) {
+      console.error("Error fetching product details:", error);
+      return null;
+    }
+  };
 
-  // Example of static orders data
-  const orders = [
-    {
-      id: 1,
-      status: "Processing",
-      buyer: { name: "Vithya" },
-      createAt: "2023-03-19T12:00:00Z",
-      payment: { success: true },
-      products: [
-        {
-          _id: "prod1",
-          name: "Apple iPhone 13 Mini", 
-          price: 64900.00, // Changed to a numeric value
-          imgUrl: `${BASE_URL}/api/v1/product/product-photo/65c080cf39978dda722d201f`,
-        },
-        {
-          _id: "prod2",
-          name: "OPPO A59 5G",
-          price: 13999.00, // Changed to a numeric value
-          imgUrl: `${BASE_URL}/api/v1/product/product-photo/65c0804b39978dda722d200d`,
-        },
-      ],
-    },
-    // Add more orders as needed
-  ];
+  const getOrders = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/api/v1/product/all-orders`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch orders');
+      }
+      const data = await response.json();
+      setOrders(data);
+    } catch (error) {
+      alert(error);
+    }
+  };
+  
+  useEffect(() => {
+    getOrders();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const details = {};
+      for (const order of orders) {
+        for (const productId of order.products) {
+          if (!details[productId]) {
+            const productDetails = await getProductDetails(productId);
+            details[productId] = productDetails;
+          }
+        }
+      }
+      setProductDetails(details);
+    };
+    fetchData();
+  }, [orders]);
 
   return (
     <Layout title={"Your Orders"}>
@@ -45,10 +62,8 @@ const Orders = () => {
           </div>
           <div className="col-md-9">
             <h1 className="text-center">All Orders</h1>
-            {/* Display current day and date */}
-            <p className="text-center">{currentDate}</p>
-            {orders.map((o, i) => (
-              <div key={o.id} className="border shadow">
+            {orders.map((order, index) => (
+              <div className="border shadow" key={order._id}>
                 <table className="table">
                   <thead>
                     <tr>
@@ -58,35 +73,40 @@ const Orders = () => {
                       <th scope="col">Date</th>
                       <th scope="col">Payment</th>
                       <th scope="col">Quantity</th>
-                      <th scope="col">Total Price</th> {/* New column for total price */}
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td>{i + 1}</td>
-                      <td>{o.status}</td>
-                      <td>{o.buyer.name}</td>
-                      <td>{currentDate}</td> 
-                      <td>{o.payment.success ? "Success" : "Failed"}</td>
-                      <td>{o.products.length}</td>
-                      <td>{o.products.reduce((acc, product) => acc + product.price, 0)}</td> {/* Calculate total price */}
+                      <td>{index + 1}</td>
+                      <td>Processing</td>
+                      <td>{order?.buyer?.name}</td>
+                      <td>{moment(order?.createdAt).format("MMMM Do YYYY, h:mm:ss a")}</td>
+                      <td>{order?.payment?.success ? "Success" : "Success"}</td>
+                      <td>{order?.products?.length}</td>
                     </tr>
                   </tbody>
                 </table>
                 <div className="container">
-                  {o.products.map((p) => (
-                    <div className="row mb-2 p-3 card flex-row" key={p._id}>
+                  {order.products.map((productId, idx) => (
+                    <div className="row mb-2 p-3 card flex-row" key={idx}>
                       <div className="col-md-4">
                         <img
-                          src={p.imgUrl}
-                          alt={p.name}
-                          style={{ width: "100px", height: "100px" }} // Adjust image size here
+                          src={`${BASE_URL}/api/v1/product/product-photo/${productId}`}
+                          className="card-img-top"
+                          alt={`Product ${idx}`}
+                          width="200px"
+                          height="200px"
                         />
                       </div>
                       <div className="col-md-8">
-                        <p>{p.name}</p>
-                        <p>{p.description}</p>
-                        <p>Price: ₹{p.price.toFixed(2)}</p> {/* Adjusted to display currency */}
+                        {productDetails[productId] ? (
+                          <>
+                            <p>Product name : {productDetails[productId].name}</p>
+                            <p>Price : {productDetails[productId].price}</p>
+                          </>
+                        ) : (
+                          <p>No product details available</p>
+                        )}
                       </div>
                     </div>
                   ))}
