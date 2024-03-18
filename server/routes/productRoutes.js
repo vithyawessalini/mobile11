@@ -17,6 +17,9 @@ import {
    generateRazorpayOrder, 
    handleRazorpayPayment ,
    storeOrder,
+   getProductOrder,
+   getAllOrdersController,
+   getOrdersController,
    productPriceFiltersController,
  } from "../controllers/productController.js";
 import { isAdmin, requireSignIn } from "../middlewares/authMiddleware.js";
@@ -81,7 +84,12 @@ router.post("/razorpay/order", generateRazorpayOrder);
 router.post("/razorpay/payment", requireSignIn, handleRazorpayPayment);
 router.post("/store-order", storeOrder);
 
+//orders
+router.get("/orders", requireSignIn, getOrdersController);
+
+//all orders
+router.get("/all-orders", getAllOrdersController);
 router.post("/product-filters", productFiltersController);
 router.post("/product-filters-price", productPriceFiltersController);
-
+router.get("/get/:productId",getProductOrder)
 export default router;
