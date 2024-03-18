@@ -16,6 +16,8 @@ import {
    updateProductController,
    generateRazorpayOrder, 
    handleRazorpayPayment ,
+   getOrdersController,
+   getAllOrdersController,
    storeOrder,
    productPriceFiltersController,
  } from "../controllers/productController.js";
@@ -80,7 +82,10 @@ router.post("/braintree/payment", requireSignIn, brainTreePaymentController);
 router.post("/razorpay/order", generateRazorpayOrder);
 router.post("/razorpay/payment", requireSignIn, handleRazorpayPayment);
 router.post("/store-order", storeOrder);
+router.get("/orders", requireSignIn, getOrdersController);
 
+//all orders
+router.get("/all-orders", requireSignIn, getAllOrdersController);
 router.post("/product-filters", productFiltersController);
 router.post("/product-filters-price", productPriceFiltersController);
 
