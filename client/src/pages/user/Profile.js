@@ -7,7 +7,7 @@ import axios from "axios";
 import { BASE_URL } from "../../config";
 const Profile = () => {
   //context
-  const [auth, setAuth] = useAuth();
+  const [auth, setAuth] = useAuth("user");
   //state
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
