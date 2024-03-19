@@ -106,7 +106,7 @@ const Orders = () => {
                             <p>Price : {productDetails[productId].price}</p>
                           </>
                         ) : (
-                          <p>No product details available</p>
+                          <p></p>
                         )}
                       </div>
                     </div>
