@@ -4,7 +4,7 @@ import Layout from "./../../components/Layout/Layout";
 import axios from "axios";
 import moment from "moment";
 import { BASE_URL } from "../../config";
-
+import DashboardAdmin from "./DashboardAdmin";
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [productDetails, setProductDetails] = useState({});
@@ -59,6 +59,7 @@ const Orders = () => {
         <div className="row">
           <div className="col-md-3">
             <UserMenu />
+            <DashboardAdmin />
           </div>
           <div className="col-md-9">
             <h1 className="text-center">All Orders</h1>
@@ -79,7 +80,8 @@ const Orders = () => {
                     <tr>
                       <td>{index + 1}</td>
                       <td>Processing</td>
-                      <td>{order?.buyer?.name}</td>
+                      <td>{order.name ? order.name : "vithya"}</td>
+
                       <td>{moment(order?.createdAt).format("MMMM Do YYYY, h:mm:ss a")}</td>
                       <td>{order?.payment?.success ? "Success" : "Success"}</td>
                       <td>{order?.products?.length}</td>
@@ -94,13 +96,13 @@ const Orders = () => {
                           src={`${BASE_URL}/api/v1/product/product-photo/${productId}`}
                           className="card-img-top"
                           alt={`Product ${idx}`}
-                         style={{ width: "100px", height: "100px" }}
+                          style={{ width: "100px", height: "100px" }}
                         />
-                      </div>
+                      </div> 
                       <div className="col-md-8">
                         {productDetails[productId] ? (
                           <>
-                            <p>Product name : {productDetails[productId].name}</p>
+                            <p> {productDetails[productId].name}</p>
                             <p>Price : {productDetails[productId].price}</p>
                           </>
                         ) : (
