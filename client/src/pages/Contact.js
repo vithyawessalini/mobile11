@@ -13,10 +13,10 @@ const Contact = () => {
             alt="contactus"
             style={{ width: "100%",height:"400px" }}
           /> */}
-
+  <br></br><br/>
 
            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m26!1m12!1m3!1d250482.176132797!2d77.30090633255107!3d11.203610960035027!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m11!3e6!4m3!3m2!1d11.2738824!2d77.5967187!4m5!1s0x3ba90741891d97bd%3A0xef87ffcc90762199!2sthe%20spot%20tirupur!3m2!1d11.1166822!2d77.3338917!5e0!3m2!1sen!2sin!4v1683517722024!5m2!1sen!2sin"
+            src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d11233.596469885939!2d77.4261110369194!3d11.155819088732374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x3ba96d7810fe32d5%3A0x85cf49c5b26fb72e!2sKongu%20Engineering%20College%2C%20Thoppupalayam%2C%20Kumaran%20Nagar%2C%20Perundurai%2C%20Tamil%20Nadu%20638060!3m2!1d11.2741843!2d77.6070381!4m5!1s0x3ba909633deb170b%3A0xc862933b47ed2693!2sSun%20Cellular%2C%20Uthukuli%2C%20Tamil%20Nadu!3m2!1d11.155798599999999!2d77.4445652!5e1!3m2!1sen!2sin!4v1710859139763!5m2!1sen!2sin" 
               width="600"
               height="450"
               frameBorder="0"
