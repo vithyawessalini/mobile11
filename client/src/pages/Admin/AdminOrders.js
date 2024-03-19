@@ -94,8 +94,7 @@ const Orders = () => {
                           src={`${BASE_URL}/api/v1/product/product-photo/${productId}`}
                           className="card-img-top"
                           alt={`Product ${idx}`}
-                          width="200px"
-                          height="200px"
+                         style={{ width: "100px", height: "100px" }}
                         />
                       </div>
                       <div className="col-md-8">
