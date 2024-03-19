@@ -63,6 +63,7 @@ const Orders = () => {
           <div className="col-md-9">
             <h1 className="text-center">All Orders</h1>
             {orders.map((order, index) => (
+              order.name ? null : (
               <div className="border shadow" key={order._id}>
                 <table className="table">
                   <thead>
@@ -79,7 +80,7 @@ const Orders = () => {
                     <tr>
                       <td>{index + 1}</td>
                       <td>Processing</td>
-                      <td>{order?.buyer?.name}</td>
+                      <td>{order.name ? order.name : "vithya"}</td>
                       <td>{moment(order?.createdAt).format("MMMM Do YYYY, h:mm:ss a")}</td>
                       <td>{order?.payment?.success ? "Success" : "Success"}</td>
                       <td>{order?.products?.length}</td>
@@ -88,6 +89,7 @@ const Orders = () => {
                 </table>
                 <div className="container">
                   {order.products.map((productId, idx) => (
+                    
                     <div className="row mb-2 p-3 card flex-row" key={idx}>
                       <div className="col-md-4">
                         <img
@@ -100,7 +102,7 @@ const Orders = () => {
                       <div className="col-md-8">
                         {productDetails[productId] ? (
                           <>
-                            <p>Product name : {productDetails[productId].name}</p>
+                            <p> {productDetails[productId].name}</p>
                             <p>Price : {productDetails[productId].price}</p>
                           </>
                         ) : (
@@ -111,6 +113,7 @@ const Orders = () => {
                   ))}
                 </div>
               </div>
+              )
             ))}
           </div>
         </div>
