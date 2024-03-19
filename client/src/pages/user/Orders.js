@@ -4,7 +4,7 @@ import Layout from "./../../components/Layout/Layout";
 import axios from "axios";
 import moment from "moment";
 import { BASE_URL } from "../../config";
-
+import { useAuth } from "../../context/auth";
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [productDetails, setProductDetails] = useState({});
@@ -52,7 +52,7 @@ const Orders = () => {
     };
     fetchData();
   }, [orders]);
-
+  const [auth] = useAuth();
   return (
     <Layout title={"Your Orders"}>
       <div className="container-fluid p-3 m-3 dashboard">
@@ -80,7 +80,8 @@ const Orders = () => {
                     <tr>
                       <td>{index + 1}</td>
                       <td>Processing</td>
-                      <td>{order.name ? order.name : "vithya"}</td>
+                      <td>{order.name ? order.name : auth?.user?.name}</td>
+
                       <td>{moment(order?.createdAt).format("MMMM Do YYYY, h:mm:ss a")}</td>
                       <td>{order?.payment?.success ? "Success" : "Success"}</td>
                       <td>{order?.products?.length}</td>
