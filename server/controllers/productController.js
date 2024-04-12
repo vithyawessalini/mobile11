@@ -476,10 +476,12 @@ export const brainTreePaymentController = async (req, res) => {
 
   export const storeOrder = async (req, res) => {
     try {
-      const { cart } = req.body;
+    
+      const { cart,userName } = req.body;
       // Create a new order instance
       const order = new orderModel({
         products: cart,
+        userName: userName, // Include the user's name
         // You can add other fields such as user ID, order status, etc.
       });
       // Save the order to the database
@@ -492,22 +494,16 @@ export const brainTreePaymentController = async (req, res) => {
     }
   };
  //orders
-export const getOrdersController = async (req, res) => {
+ export const getOrdersController = async (req, res) => {
   try {
-    const orders = await orderModel
-      .find({ buyer: req.user._id })
-      .populate("products", "-photo")
-      .populate("buyer", "name");
-    res.json(orders);
+    const coaches = await orderModel.find();
+    res.json(coaches);
   } catch (error) {
-    console.log(error);
-    res.status(500).send({
-      success: false,
-      message: "Error WHile Geting Orders",
-      error,
-    });
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 };
+
 //orders
 export const getAllOrdersController = async (req, res) => {
     try {
