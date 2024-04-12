@@ -92,8 +92,4 @@ router.get("/all-orders", getAllOrdersController);
 router.post("/product-filters", productFiltersController);
 router.post("/product-filters-price", productPriceFiltersController);
 router.get("/get/:productId",getProductOrder)
-<<<<<<< HEAD
 export default router;
-=======
-export default router;
->>>>>>> 01acd386b589db9caf26e986112c16eac6db2f3c

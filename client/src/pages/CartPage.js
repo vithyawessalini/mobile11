@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
-import UserMenu from "../../components/Layout/UserMenu";
-import Layout from "./../../components/Layout/Layout";
+import Layout from "./../components/Layout/Layout";
+import { useCart } from "../context/cart";
+import { useAuth } from "../context/auth";
+import { useNavigate } from "react-router-dom";
+import DropIn from "braintree-web-drop-in-react";
+import { AiFillWarning } from "react-icons/ai";
 import axios from "axios";
-<<<<<<< HEAD
 import toast from "react-hot-toast";
 import "../styles/CartStyles.css";
 import { BASE_URL } from "../config";
@@ -60,40 +63,13 @@ const CartPage = () => {
 
   //get payment gateway token
   const getToken = async () => {
-=======
-import moment from "moment";
-import { BASE_URL } from "../../config";
-import { useAuth } from "../../context/auth";
-const Orders = () => {
-  const [auth] = useAuth();
-  const [orders, setOrders] = useState([]);
-  const [productDetails, setProductDetails] = useState({});
-  const userName = auth?.user?.name;
-  const getProductDetails = async (productId) => {
     try {
-      if (!productId) return null;
-      const response = await axios.get(`${BASE_URL}/api/v1/product/get/${productId}`);
-      return response.data.product; // Assuming the product data is nested under 'product' key
+      const { data } = await axios.get(`${ BASE_URL }/api/v1/product/braintree/token`);
+      setClientToken(data?.clientToken);
     } catch (error) {
-      console.error("Error fetching product details:", error);
-      return null;
+      console.log(error);
     }
   };
-
-  const getOrders = async () => {
->>>>>>> 01acd386b589db9caf26e986112c16eac6db2f3c
-    try {
-      const response = await fetch(`${BASE_URL}/api/v1/product/orders`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch orders');
-      }
-      const data = await response.json();
-      setOrders(data);
-    } catch (error) {
-      alert(error);
-    }
-  };
-<<<<<<< HEAD
   useEffect(() => {
     getToken();
   }, [auth?.token]);
@@ -250,59 +226,44 @@ const storeOrderInDB = async () => {
   }
 };
 
-=======
->>>>>>> 01acd386b589db9caf26e986112c16eac6db2f3c
   
-  useEffect(() => {
-    getOrders();
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const details = {};
-      for (const order of orders) {
-        for (const productId of order.products) {
-          if (!details[productId]) {
-            const productDetails = await getProductDetails(productId);
-            details[productId] = productDetails;
-          }
-        }
-      }
-      setProductDetails(details);
-    };
-    fetchData();
-  }, [orders]);
- 
   return (
-    <Layout title={"Your Orders"}>
-      <div className="container-fluid p-3 m-3 dashboard">
+    <Layout >
+      <div className="cart-page card-img-overlay">
         <div className="row">
-          <div className="col-md-3">
-            <UserMenu />
+          <div className="col-md-12">
+            <h1 className="text-center bg-light p-2 mb-1">
+              {!auth?.user
+                ? "Hello Guest"
+                : `Hello  ${auth?.token && auth?.user?.name}`}
+              <p className="text-center">
+                {cart?.length
+                  ? `You Have ${cart.length} items in your cart ${
+                      auth?.token ? "" : "please login to checkout !"
+                    }`
+                  : " Your Cart Is Empty"}
+              </p>
+            </h1>
           </div>
-          <div className="col-md-9">
-            <h1 className="text-center">All Orders</h1>
-            {orders.map((order, index) => (
-               order.userName === auth?.user?.name && (
-              <div className="border shadow" key={order._id}>
-                <table className="table">
-                  <thead>
-                    <tr>
-                      {/* <th scope="col">#</th> */}
-                      <th scope="col">Status</th>
-                      <th scope="col">Buyer</th>
-                      <th scope="col">Date</th>
-                      <th scope="col">Payment</th>
-                      <th scope="col">Quantity</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      {/* <td>{index + 1}</td> */}
-                      <td>Processing</td>
-                      <td>{order.userName}</td>
+        </div>
+        <div className="container ">
+          <div className="row ">
+            <div className="col-md-7  p-0 m-0">
+              {cart?.map((p) => (
+                <div className="row card1 flex-row" key={p._id}>
+                  <div className="col-md-4">
+                    <img
+                      src={`${BASE_URL}/api/v1/product/product-photo/${p._id}`}
+                      className="card-img-top-cart"
+                      alt={p.name}
+                      width="60%"
+                      height={"130px"}
+                    />
+                  </div>
+                  <div className="col-md-4">
+                    <p>{p.name}</p>
+                    <p>{p.description && p.description.substring(0, 30)}...</p>
 
-<<<<<<< HEAD
                     <p>Price : {p.price}</p>
                     </div>
                   <div className="col-md-4 cart-remove-btn">
@@ -320,42 +281,87 @@ const storeOrderInDB = async () => {
                       Remove
                     </button>
                   </div>
-=======
-                      <td>{moment(order?.createdAt).format("MMMM Do YYYY, h:mm:ss a")}</td>
-                      <td>{order?.payment?.success ? "Success" : "Success"}</td>
-                      <td>{order?.products?.length}</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div className="container">
-                  {order.products.map((productId, idx) => (
-                    
-                    <div className="row mb-2 p-3 card flex-row" key={idx}>
-                      <div className="col-md-4">
-                        <img
-                          src={`${BASE_URL}/api/v1/product/product-photo/${productId}`}
-                          className="card-img-top"
-                          alt={`Product ${idx}`}
-                          style={{ width: "100px", height: "100px" }}
-                        />
-                      </div>
-                      <div className="col-md-8">
-                        {productDetails[productId] ? (
-                          <>
-                            <p> {productDetails[productId].name}</p>
-                            <p>Price : {productDetails[productId].price}</p>
-                          </>
-                        ) : (
-                          <p></p>
-                        )}
-                      </div>
-                    </div>
-                  ))}
->>>>>>> 01acd386b589db9caf26e986112c16eac6db2f3c
                 </div>
+              ))}
+            </div>
+            
+            <div className="col-md-5 cart-summary ">
+              <h2>Cart Summary</h2>
+                <div>
+              <h2>Razorpay</h2>
+              {/* <input type = "text" placeholder="amount" value={amount} onChange={(e)=>setAmount(e.target.value)}/>
+              <button onClick={handleSubmit}>Submit</button> */}
+            </div>
+              <hr />
+              <h4>Total : {totalPrice()} </h4>
+              {auth?.user?.address ? (
+                <>
+                  <div className="mb-3">
+                    <h4>Current Address</h4>
+                    <h5>{auth?.user?.address}</h5>
+                    <button
+                      className="btn btn-outline-warning"
+                      onClick={() => navigate("/user/profile")}
+                    >
+                      Update your Address
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <div className="mb-3">
+                  {auth?.token ? (
+                    <button
+                      className="btn btn-outline-warning"
+                      onClick={() => navigate("/user/profile")}
+                    >
+                      Update Address
+                    </button>
+                  ) : (
+                    <button
+                      className="btn btn-outline-warning"
+                      onClick={() =>
+                        navigate("/login", {
+                          state: "/cart",
+                        })
+                      }
+                    >
+                      Plase Login to checkout
+                    </button>
+                  )}
+                </div>
+              )}
+              <button
+                      className="btn btn-outline-warning"
+                      onClick={() => navigate("/Exchange")}
+                    >
+                     Sell old phones 
+                    </button>
+              <div className="mt-2">
+                {!clientToken || !auth?.token || !cart?.length ? (
+                  ""
+                ) : (
+                  <>
+                    <DropIn
+                      options={{
+                        authorization: clientToken,
+                        paypal: {
+                          flow: "vault",
+                        },
+                      }}
+                      onInstance={(instance) => setInstance(instance)}
+                    />
+
+                    <button
+                      className="btn btn-primary"
+                      onClick={handleSubmit}
+                      disabled={loading || !instance || !auth?.user?.address}
+                    >
+                      {loading ? "Processing ...." : "Make Payment"}
+                    </button>
+                  </>
+                )}
               </div>
-              )
-            ))}
+            </div>
           </div>
         </div>
       </div>
@@ -363,8 +369,4 @@ const storeOrderInDB = async () => {
   );
 };
 
-<<<<<<< HEAD
 export default CartPage;
-=======
-export default Orders;
->>>>>>> 01acd386b589db9caf26e986112c16eac6db2f3c
