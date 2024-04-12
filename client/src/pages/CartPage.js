@@ -17,32 +17,49 @@ const CartPage = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [amount, setAmount] = useState("");
+  const [quantity, setQuantity] = useState(1);
+  const userName = auth?.user?.name;
+  
   //total price
   const totalPrice = () => {
     try {
-        let total = 0;
-        cart?.map((item) => {
-            total = total + item.price;
-        });
-        return total; // Returning the total as a number
+      let total = 0;
+      cart?.forEach((item) => {
+        total += item.price * quantity; // Consider quantity for total price calculation
+      });
+      return total;
     } catch (error) {
-        console.log(error);
-        return 0; // Return 0 if an error occurs
+      console.log(error);
+      return 0;
     }
-};
+  };
 
   //detele item
   const removeCartItem = (pid) => {
     try {
-      let myCart = [...cart];
-      let index = myCart.findIndex((item) => item._id === pid);
-      myCart.splice(index, 1);
-      setCart(myCart);
-      localStorage.setItem("cart", JSON.stringify(myCart));
+      const updatedCart = cart.filter((item) => item._id !== pid);
+      setCart(updatedCart);
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
     } catch (error) {
       console.log(error);
     }
   };
+
+  const updateCartItemQuantity = (pid, quantity) => {
+    try {
+      const updatedCart = cart.map((item) => {
+        if (item._id === pid) {
+          return { ...item, quantity };
+        }
+        return item;
+      });
+      setCart(updatedCart);
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   //get payment gateway token
   const getToken = async () => {
@@ -198,6 +215,7 @@ const storeOrderInDB = async () => {
     // Make a request to your backend to store the order
     const response = await axios.post(`${BASE_URL}/api/v1/product/store-order`, {
       cart,
+      userName // Include user's name
     });
     // Clear the cart after storing the order
     setCart([]);
@@ -247,8 +265,16 @@ const storeOrderInDB = async () => {
                     <p>{p.description && p.description.substring(0, 30)}...</p>
 
                     <p>Price : {p.price}</p>
-                  </div>
+                    </div>
                   <div className="col-md-4 cart-remove-btn">
+                  <input
+                      type="number"
+                      min="1"
+                      value={quantity}
+                      onChange={(e) => setQuantity(e.target.value)}
+                      style={{ width: '30px' }}
+                    />
+                  &emsp;&emsp;
                     <button
                       className="btn btn-primary"
                       onClick={() => removeCartItem(p._id)}>

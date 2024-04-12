@@ -85,7 +85,7 @@ router.post("/razorpay/payment", requireSignIn, handleRazorpayPayment);
 router.post("/store-order", storeOrder);
 
 //orders
-router.get("/orders", requireSignIn, getOrdersController);
+router.get("/orders", getOrdersController);
 
 //all orders
 router.get("/all-orders", getAllOrdersController);
