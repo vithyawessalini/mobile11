@@ -133,13 +133,27 @@ const handleSortOrderChange = (value) => {
     if (page === 1) return;
     loadMore();
   }, [page]);
+  const checkStock = (quantity) => {
+    return quantity > 0 ? "In Stock" : "Out of Stock";
+  };
 
+  const stockStatusColor = (quantity) => {
+    return quantity > 0 ? "text-success" : "text-danger";
+  };
+
+  const updateStockStatus = (productId, updatedQuantity) => {
+    setProducts((prevProducts) =>
+      prevProducts.map((product) =>
+        product._id === productId ? { ...product, quantity: updatedQuantity } : product
+      )
+    );
+  };
   return (
     <Layout title={"All Products - Best offers "}>
       <br></br>
       <br></br>
       <div className="container-fluid row mt-3 home-page">
-        <div className="col-md-3 filters">
+        <div className="col-md-3 filters" >
           <h4 className="text-center">Filter By Category</h4>
           <div className="d-flex flex-column">
           {categories?.map((c) => (
@@ -173,6 +187,9 @@ const handleSortOrderChange = (value) => {
                   />
                   <div className="card-body">
                     <h5 className="card-title">{p.name}</h5>
+                    <p className={`card-text ${stockStatusColor(p.quantity)}`}>
+                      {checkStock(p.quantity)}
+                    </p>
                     <p className="card-text">{p.description.substring(0, 30)}...</p>
                     <p className="card-text"> ₹{p.price}</p>
                     <button className="btn btn-primary ms-1" onClick={() => navigate(`/product/${p.slug}`)}>More details</button>
@@ -186,6 +203,7 @@ const handleSortOrderChange = (value) => {
                         );
                         toast.success("Item Added to cart");
                       }}
+                      disabled={p.quantity === 0}
                     >
                       ADD TO CART
                     </button>
