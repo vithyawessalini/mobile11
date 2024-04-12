@@ -8,7 +8,7 @@ const Footer = () => {
       <br></br>
       <h1 className="text-center">All Right Reserved &copy; Suncellular</h1>
       <p className="text-center mt-3">
-        <Link to="/about">Home</Link>|<Link to="/contact">Contact</Link>
+        <Link to="/about">Home</Link>|<Link to="/contact">Contact</Link>|<Link to="/feedback">Feedback</Link>
       </p>
     </div>
   );
