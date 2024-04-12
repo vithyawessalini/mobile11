@@ -5,7 +5,7 @@ import axios from "axios";
 import DashboardAdmin from "./DashboardAdmin";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
-import { BASE_URL } from "../../config";
+import { BASE_URL } from "./../../config";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
