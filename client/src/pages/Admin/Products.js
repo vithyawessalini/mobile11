@@ -34,6 +34,7 @@ const Products = () => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+
   return (
     <Layout>
       <div className="row dashboard">
