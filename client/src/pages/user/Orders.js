@@ -6,9 +6,10 @@ import moment from "moment";
 import { BASE_URL } from "../../config";
 import { useAuth } from "../../context/auth";
 const Orders = () => {
+  const [auth] = useAuth();
   const [orders, setOrders] = useState([]);
   const [productDetails, setProductDetails] = useState({});
-
+  const userName = auth?.user?.name;
   const getProductDetails = async (productId) => {
     try {
       if (!productId) return null;
@@ -22,7 +23,7 @@ const Orders = () => {
 
   const getOrders = async () => {
     try {
-      const response = await fetch(`${BASE_URL}/api/v1/product/all-orders`);
+      const response = await fetch(`${BASE_URL}/api/v1/product/orders`);
       if (!response.ok) {
         throw new Error('Failed to fetch orders');
       }
@@ -52,7 +53,7 @@ const Orders = () => {
     };
     fetchData();
   }, [orders]);
-  const [auth] = useAuth();
+ 
   return (
     <Layout title={"Your Orders"}>
       <div className="container-fluid p-3 m-3 dashboard">
@@ -63,12 +64,12 @@ const Orders = () => {
           <div className="col-md-9">
             <h1 className="text-center">All Orders</h1>
             {orders.map((order, index) => (
-              order.name ? null : (
+               order.userName === auth?.user?.name && (
               <div className="border shadow" key={order._id}>
                 <table className="table">
                   <thead>
                     <tr>
-                      <th scope="col">#</th>
+                      {/* <th scope="col">#</th> */}
                       <th scope="col">Status</th>
                       <th scope="col">Buyer</th>
                       <th scope="col">Date</th>
@@ -78,9 +79,9 @@ const Orders = () => {
                   </thead>
                   <tbody>
                     <tr>
-                      <td>{index + 1}</td>
+                      {/* <td>{index + 1}</td> */}
                       <td>Processing</td>
-                      <td>{order.name ? order.name : auth?.user?.name}</td>
+                      <td>{order.userName}</td>
 
                       <td>{moment(order?.createdAt).format("MMMM Do YYYY, h:mm:ss a")}</td>
                       <td>{order?.payment?.success ? "Success" : "Success"}</td>
