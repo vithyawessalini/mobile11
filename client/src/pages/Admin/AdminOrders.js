@@ -80,7 +80,7 @@ const Orders = () => {
                     <tr>
                       <td>{index + 1}</td>
                       <td>Processing</td>
-                      <td>{order.name ? order.name : "vithya"}</td>
+                      <td>{order.userName}</td>
 
                       <td>{moment(order?.createdAt).format("MMMM Do YYYY, h:mm:ss a")}</td>
                       <td>{order?.payment?.success ? "Success" : "Success"}</td>
