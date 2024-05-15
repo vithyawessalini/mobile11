@@ -1,4 +1,4 @@
-# **Mobile E-commerce Website**
+# **Mobile E-commerce Website(MERN Stack)**
 ## Project Overview
 
 This mini project demonstrates the working of an e-commerce website specialized in selling mobile devices. Mobile and e-commerce applications are essential tools for accessing the Internet and for purchasing products and services. Customers today prefer everything to be available online because it is very convenient, saves a lot of time, and helps them make the best choice. These applications are constantly evolving due to rapid technological advances.
